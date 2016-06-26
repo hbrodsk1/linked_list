@@ -82,7 +82,65 @@ class LinkedList
 		false
 	end
 
+	def find(value)
+		index = 0
+		node = @head
 
+		until node == @tail.next
+			if node.value == value
+				return index
+			else
+			node = node.next
+			index += 1
+			end
+		end
+		nil
+	end
+
+	def to_s
+		node = @head
+
+		until node == @tail.next
+			print "(#{node.value}) -> "
+			node = node.next
+		end
+		nil
+	end
+
+	def insert_at(index)
+		@size += 1
+		node = @head
+		new_node = Node.new("No Data")
+		count = 0
+
+		until count == index - 1 
+			node = node.next
+			count += 1
+		end
+		insert = node.next
+		node.next = new_node
+		new_node.next = insert
+
+		@tail = node.next if index == @size
+	end
+
+	def remove_at(index)
+		@size -= 1
+		node = @head
+		count = 0
+
+		if index == 0
+			new_head = @head.next
+			@head = new_head
+		else
+			until count == index - 1
+				node = node.next
+				count += 1
+			end
+		end
+
+		node.next = node.next.next
+	end
 end
 
 class Node
@@ -94,17 +152,3 @@ class Node
 		@next = nil
 	end
 end
-
-a = LinkedList.new
-
-
-b = a.append("hi")
-c = a.append("bye")
-d = a.append("shy")
-e = a.append("4")
-f = a.append("5")
-g = a.append("6")
-
-p a.contains?("7")
-p a.size
-
